@@ -44,10 +44,6 @@ export default class Home extends Vue {
     { name: 'Date',     label: 'Date',   field: (row: IWeatherForecast) => row.date },
   ];
 
-  computed = {
-
-  };
-
   public async mounted() {
     try {
       this.forecasts = (await axios.get('api/weatherforecast')).data;

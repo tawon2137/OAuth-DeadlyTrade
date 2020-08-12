@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace VueCliSample.Controllers
+namespace AuthDeadlyTrade.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

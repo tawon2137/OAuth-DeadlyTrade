@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "VueCliSample": {
+    "AuthDeadlyTrade": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

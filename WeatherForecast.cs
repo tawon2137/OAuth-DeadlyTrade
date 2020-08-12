@@ -1,6 +1,6 @@
 using System;
 
-namespace VueCliSample
+namespace AuthDeadlyTrade
 {
     public class WeatherForecast
     {

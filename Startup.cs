@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using VueCliMiddleware;
 
-namespace VueCliSample
+namespace AuthDeadlyTrade
 {
     public class Startup
     {
