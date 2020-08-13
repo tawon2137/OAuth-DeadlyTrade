@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AuthDeadlyTrade.Api.Data;
 
 namespace AuthDeadlyTrade
 {
@@ -13,7 +12,9 @@ namespace AuthDeadlyTrade
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            SeedDataBase(host);
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +23,25 @@ namespace AuthDeadlyTrade
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void SeedDataBase(IHost host) 
+        {
+            var scopeFactory = host.Services.GetRequiredService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<AuthDeadlyTradeContext>();
+            
+            if (context.Database.EnsureCreated())
+            {
+                try
+                {
+                    SeedData.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "A database seeding error occurred.");
+                }
+            }
+        }
     }
 }

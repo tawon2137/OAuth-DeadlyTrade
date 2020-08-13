@@ -46,7 +46,7 @@ export default class Home extends Vue {
 
   public async mounted() {
     try {
-      this.forecasts = (await axios.get('api/weatherforecast')).data;
+      this.forecasts = (await axios.get('api/products')).data;
     } catch {
       this.forecasts = [{ summary: 'No data.' } as IWeatherForecast];
     }
