@@ -25,8 +25,31 @@ namespace AuthDeadlyTrade.Api.Data
                     }
                 );
 
-                context.SaveChanges();
+                
             }
+
+            if (!context.AppClients.Any())
+            {
+                context.AppClients.AddRange(
+                    new AppClient
+                    {
+                        ClientSecret = "test",
+                        ClientId = "test",
+                        IsExpired = false,
+                        RedirectUri = "https://test.com"
+                    },
+                    new AppClient
+                    {
+                        ClientSecret = "test2",
+                        ClientId = "test2",
+                        IsExpired = false,
+                        RedirectUri = "https://test2.com"
+                    }
+                );
+            }
+
+
+            context.SaveChanges();
         }
     }
 }

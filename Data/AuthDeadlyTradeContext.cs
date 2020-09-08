@@ -9,9 +9,9 @@ namespace AuthDeadlyTrade.Api.Data
             : base(options)
         {
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseInMemoryDatabase("AuthDeadlyTrade");
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<AppClient> AppClients { get; set; }
     }
 }
