@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace AuthDeadlyTrade.Api.Models
 {
     public class AppClient
     {   
-        public long Id { get; set; }
+        public int AppClientId { get; set; }
 
         [Required]
         public string ClientId { get; set; }
@@ -17,5 +18,7 @@ namespace AuthDeadlyTrade.Api.Models
 
         [Required]
         public bool IsExpired { get; set; }
+
+        public List<AppClientUser> AppClientUsers { get; set; }
     }
 }
