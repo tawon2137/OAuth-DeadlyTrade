@@ -1,23 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>Welcome to Your Vue.js App</h1>
-     <table>
-      <thead>
-        <tr>
-          <th v-for="(item, index) in forecastCols" v-bind:key="index"> 
-            {{ item.label | capitalize }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in forecasts" v-bind:key="index">
-          <td v-for="(col, index) in forecastCols" v-bind:key="index">
-            {{ col.field(item) }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="dt__content dt__content--main">
+    <section class="dt__section dt__section--main container columns is-multiline is-centered">
+      <div class="column columns is-full is-centered">
+        <h1 class="column is-2"><b-image class="dt__logo dt__logo--main" alt="Oauth service With DeadlyTrade" :src="require('@/assets/img/signature.png')" lazy /></h1>
+      </div>
+      <ul class="column columns is-half is-multiline">
+        <li class="column is-full">
+          <b-button icon-left="google" expanded >Sign in With Google</b-button>
+        </li>
+        <li class="column is-full">
+          <b-button expanded>sign in with reddit</b-button>
+        </li>
+        <li class="column is-full">
+          <b-button expanded>sign in with facebook</b-button>
+        </li>
+        <li class="column is-full">
+          <b-button expanded>sign in with kakao</b-button>
+        </li>
+      </ul>
+    </section>
+    <b-image class="dt__image dt__image--background" :src="require('@/assets/img/main-bg.jpg')" responsive />
   </div>
 </template>
 
@@ -35,7 +37,7 @@ import axios from 'axios';
     },
   },
 })
-export default class Home extends Vue {
+export default class Authenticate extends Vue {
   private forecasts: IWeatherForecast[] = [{ summary: 'No data.' } as IWeatherForecast];
   private forecastCols: any[] = [
     { name: 'Summary', label: 'Summary', field: (row: IWeatherForecast) => row.summary },
@@ -46,6 +48,7 @@ export default class Home extends Vue {
   
   
   public async mounted() {
+    // console.log(process.env, this);
     try {
       this.forecasts = (await axios.get('api/weatherforecast')).data;
     } catch {
