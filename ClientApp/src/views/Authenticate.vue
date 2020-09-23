@@ -48,12 +48,21 @@ export default class Authenticate extends Vue {
   
   
   public async mounted() {
-    // console.log(process.env, this);
     try {
-      this.forecasts = (await axios.get('api/weatherforecast')).data;
-    } catch {
-      this.forecasts = [{ summary: 'No data.' } as IWeatherForecast];
+      const authCode = await this.$gAuth.getAuthCode()
+    }catch(e) {
+
+      console.log(e);
     }
+    
+    
+    // const response = await this.$http.post('http://your-backend-server-api-to-use-authcode', { code: authCode, redirect_uri: 'postmessage' })
+    // console.log(process.env, this);
+    // try {
+    //   this.forecasts = (await axios.get('api/weatherforecast')).data;
+    // } catch {
+    //   this.forecasts = [{ summary: 'No data.' } as IWeatherForecast];
+    // }
   }
 }
 </script>

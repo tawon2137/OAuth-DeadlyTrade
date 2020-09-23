@@ -2,13 +2,16 @@ namespace AuthDeadlyTrade.Provider.Auth
 {
     public class GoogleModule: IAuthModule
     {   
-        static string Provider = "google";
-        static string CallbackUri = "";
+        static string PROVIDER = "google";
+
         private readonly string _clientId;
         private readonly string _clientSecret;
-        public GoogleModule(string clientId, string clientSecret) {
+        private readonly string _callbackUri;
+
+        public GoogleModule(string clientId, string clientSecret, string _callbackUri) {
             _clientId = clientId;
             _clientSecret = clientSecret;
+            _callbackUri = _callbackUri;
         }
 
 
