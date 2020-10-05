@@ -19,7 +19,6 @@ namespace AuthDeadlyTrade.Api.Models
         [Required]
         public string RefreshToken { get; set; }
 
-
         public int PoeAccountId { get; set; }
         public PoeAccount PoeAccount { get; set; }
 

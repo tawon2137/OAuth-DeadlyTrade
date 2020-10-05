@@ -16,7 +16,7 @@ namespace AuthDeadlyTrade.Api.Data
         {
 
             modelBuilder.Entity<AppClientUser>()
-                .HasKey(t => new { t.AppClientId, t.UserId });
+                .HasKey(t => new { t.AppClientId, t.UserId, t.AppTokenId });
 
             modelBuilder.Entity<AppClientUser>()
                 .HasOne(acu => acu.User)
@@ -27,6 +27,7 @@ namespace AuthDeadlyTrade.Api.Data
                 .HasOne(acu => acu.AppClient)
                 .WithMany(ac => ac.AppClientUsers)
                 .HasForeignKey(acu => acu.AppClientId);
+                
 
 
             modelBuilder.Entity<AppClient>()

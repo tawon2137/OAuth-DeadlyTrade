@@ -23,6 +23,7 @@ namespace AuthDeadlyTrade.Api.Models
         [Column(TypeName="Date")]
         public DateTime RefreshTokenExpiresAt { get; set; }
 
+        public AppClientUser AppClientUser { get; set; }
 
     }
 }

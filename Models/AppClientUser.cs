@@ -18,8 +18,6 @@ namespace AuthDeadlyTrade.Api.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
-
-        [Required] 
         public int AppTokenId { get; set; }
 
         public AppToken AppToken { get; set;}

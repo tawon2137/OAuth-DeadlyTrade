@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AuthDeadlyTrade.Migrations
 {
@@ -15,11 +16,28 @@ namespace AuthDeadlyTrade.Migrations
                     ClientId = table.Column<string>(nullable: false),
                     ClientSecret = table.Column<string>(nullable: false),
                     RedirectUri = table.Column<string>(nullable: false),
-                    IsExpired = table.Column<bool>(nullable: false)
+                    IsExpired = table.Column<bool>(nullable: false),
+                    Grants = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppClients", x => x.AppClientId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppToken",
+                columns: table => new
+                {
+                    AppTokenId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccessToken = table.Column<string>(nullable: false),
+                    AccessTokenExpiresAt = table.Column<DateTime>(type: "Date", nullable: false),
+                    RefreshToken = table.Column<string>(nullable: false),
+                    RefreshTokenExpiresAt = table.Column<DateTime>(type: "Date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppToken", x => x.AppTokenId);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,16 +116,24 @@ namespace AuthDeadlyTrade.Migrations
                 columns: table => new
                 {
                     AppClientId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    AppTokenId = table.Column<int>(nullable: false),
+                    ExpiresAt = table.Column<DateTime>(type: "Date", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppClientUsers", x => new { x.AppClientId, x.UserId });
+                    table.PrimaryKey("PK_AppClientUsers", x => new { x.AppClientId, x.UserId, x.AppTokenId });
                     table.ForeignKey(
                         name: "FK_AppClientUsers_AppClients_AppClientId",
                         column: x => x.AppClientId,
                         principalTable: "AppClients",
                         principalColumn: "AppClientId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppClientUsers_AppToken_AppTokenId",
+                        column: x => x.AppTokenId,
+                        principalTable: "AppToken",
+                        principalColumn: "AppTokenId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AppClientUsers_Users_UserId",
@@ -121,6 +147,12 @@ namespace AuthDeadlyTrade.Migrations
                 name: "IX_AccessRoles_UserId",
                 table: "AccessRoles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppClientUsers_AppTokenId",
+                table: "AppClientUsers",
+                column: "AppTokenId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppClientUsers_UserId",
@@ -146,6 +178,9 @@ namespace AuthDeadlyTrade.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppClients");
+
+            migrationBuilder.DropTable(
+                name: "AppToken");
 
             migrationBuilder.DropTable(
                 name: "Users");
