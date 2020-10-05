@@ -17,8 +17,11 @@ namespace AuthDeadlyTrade.Api.Models
         public string RedirectUri { get; set; }
 
         [Required]
-        public bool IsExpired { get; set; }
+        public bool IsExpired { get; set; } 
+
+        public string[] Grants { get; set; }
 
         public List<AppClientUser> AppClientUsers { get; set; }
+
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using AuthDeadlyTrade.Api.Models;
+
 
 namespace AuthDeadlyTrade.Api.Data
 {
@@ -25,6 +27,14 @@ namespace AuthDeadlyTrade.Api.Data
                 .HasOne(acu => acu.AppClient)
                 .WithMany(ac => ac.AppClientUsers)
                 .HasForeignKey(acu => acu.AppClientId);
+
+
+            modelBuilder.Entity<AppClient>()
+                .Property(e => e.Grants)
+                .HasConversion(
+                    v => string.Join(",", v),
+                    v => v.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                );
         }
 
         public DbSet<Product> Products { get; set; }
