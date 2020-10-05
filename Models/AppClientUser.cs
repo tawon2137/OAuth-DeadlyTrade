@@ -10,6 +10,10 @@ namespace AuthDeadlyTrade.Api.Models
         public int AppClientId { get; set; }
         public AppClient AppClient { get; set; }
 
+
+        [Required]
+        public string AuthorizationCode { get; set; }
+
         [Column(TypeName="Date")]
         [Required]
         public DateTime ExpiresAt { get; set; }

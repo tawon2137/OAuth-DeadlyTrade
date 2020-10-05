@@ -4,14 +4,16 @@ using AuthDeadlyTrade.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AuthDeadlyTrade.Migrations
 {
     [DbContext(typeof(AuthDeadlyTradeContext))]
-    partial class AuthDeadlyTradeContextModelSnapshot : ModelSnapshot
+    [Migration("20201005155335_AddAppClientUserAuthorizationCode")]
+    partial class AddAppClientUserAuthorizationCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
